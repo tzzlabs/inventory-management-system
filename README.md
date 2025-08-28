@@ -1,4 +1,5 @@
-📦 Inventory Management System
+# Inventory Management System
+
 A full-stack web application built with Spring Boot, Thymeleaf, and MySQL that provides complete inventory management with role-based access control, product CRUD operations, and export functionality.
 
 https://img.shields.io/badge/Spring_Boot-6DB33F?style=for-the-badge&logo=spring-boot&logoColor=white
