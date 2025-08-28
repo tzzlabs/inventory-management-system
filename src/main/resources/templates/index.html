@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Inventory Management System</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="#">Inventory System</a>
+            <div class="navbar-nav ms-auto">
+                <a class="nav-link" href="/products">Manage Products</a>
+                <form th:action="@{/logout}" method="post" class="d-inline">
+                    <button type="submit" class="btn btn-outline-light btn-sm">Logout</button>
+                </form>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mt-4">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h4>Welcome to Inventory Management System</h4>
+                    </div>
+                    <div class="card-body">
+                        <p>You have successfully logged in!</p>
+                        <p>Username: <span th:text="${#authentication.name}"></span></p>
+                        <p>Roles: <span th:text="${#authentication.authorities}"></span></p>
+                        
+                        <!-- ADDED THIS PRODUCT MANAGEMENT SECTION -->
+                        <hr>
+                        <div class="mt-4">
+                            <h4>Product Management</h4>
+                            <a href="/products" class="btn btn-primary mb-3">Manage Products</a>
+                            
+                            <div th:if="${products != null and !products.empty}">
+                                <h5>Current Products:</h5>
+                                <div class="row">
+                                    <div th:each="product : ${products}" class="col-md-4 mb-3">
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <h6 th:text="${product.name}" class="card-title"></h6>
+                                                <p th:text="${product.description}" class="card-text small"></p>
+                                                <p class="card-text">
+                                                    <strong>Price:</strong> $<span th:text="${#numbers.formatDecimal(product.price, 1, 2)}"></span><br>
+                                                    <strong>Quantity:</strong> <span th:text="${product.quantity}"></span>
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div th:if="${products == null or products.empty}">
+                                <div class="alert alert-info">
+                                    <p>No products found. <a href="/products">Click here</a> to add your first product.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- END OF PRODUCT MANAGEMENT SECTION -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
